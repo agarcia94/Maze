@@ -3,13 +3,8 @@ package com.example.andrewgarcia.mazerunner;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-<<<<<<< Updated upstream
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-=======
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
->>>>>>> Stashed changes
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,15 +23,9 @@ public class MazeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maze);
-<<<<<<< Updated upstream
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        //
-=======
 
         RelativeLayout container = (RelativeLayout) findViewById(R.id.maze_container);
         boardView = new MazeBoardView(this);
->>>>>>> Stashed changes
 
         // Some setup of the view.
         boardView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
