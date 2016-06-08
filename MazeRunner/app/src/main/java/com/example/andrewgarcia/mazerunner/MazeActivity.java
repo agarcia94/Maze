@@ -2,6 +2,7 @@ package com.example.andrewgarcia.mazerunner;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -27,13 +28,12 @@ public class MazeActivity extends AppCompatActivity {
     Button startButton, resetButton, solveButton;
     TextView clockView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maze);
-
+        final MediaPlayer menu = MediaPlayer.create(this,R.raw.main_menu_music);
+        menu.start();
 
         startButton = (Button) findViewById(R.id.startButton);
         resetButton = (Button) findViewById(R.id.resetButton);
@@ -51,15 +51,10 @@ public class MazeActivity extends AppCompatActivity {
 
                 Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.testmaze);
 
-
                 boardView.initialize(testMaze);
                 boardView.invalidate();
-
-
-
             }
         });
-
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,13 +65,6 @@ public class MazeActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
        RelativeLayout container = (RelativeLayout) findViewById(R.id.maze_container);
        boardView = new MazeBoardView(this);
 
@@ -85,11 +73,7 @@ public class MazeActivity extends AppCompatActivity {
        container.addView(boardView);
     }
 
-
-
-
     public class clockClass extends CountDownTimer {
-
         public clockClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
@@ -102,7 +86,6 @@ public class MazeActivity extends AppCompatActivity {
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
             System.out.println(hms);
             clockView.setText(hms);
-
         }
 
         @Override
@@ -110,12 +93,6 @@ public class MazeActivity extends AppCompatActivity {
             clockView.setText("Times Up.");
         }
     }
-
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,7 +135,6 @@ public class MazeActivity extends AppCompatActivity {
     //}
 
     public void shuffleImage(View view) {
-
         boardView.shuffle();
         boardView.invalidate();
     }
