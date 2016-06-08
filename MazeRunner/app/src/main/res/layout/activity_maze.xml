@@ -9,34 +9,103 @@
     tools:context="com.example.andrewgarcia.mazerunner.MazeActivity"
     android:id="@+id/maze_container">
 
-    <Button
-        android:layout_width="wrap_content"
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/take_photo_button_label"
-        android:id="@+id/photo_button"
-        android:onClick="dispatchTakePictureIntent"
-        android:layout_alignParentBottom="true"
+        android:text="00:01:00"
+        android:id="@+id/clockView"
+        android:textSize="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center" />
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clockView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/shuffle_button_label"
-        android:id="@+id/shuffle_button"
-        android:onClick="shuffleImage"
-        android:layout_alignTop="@+id/photo_button"
-        android:layout_toRightOf="@+id/photo_button"
-        android:layout_toEndOf="@+id/photo_button" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:id="@+id/startButton"
+            android:layout_alignTop="@+id/startButton"
+            android:layout_alignLeft="@+id/clockView"
+            android:layout_alignStart="@+id/clockView" />
 
-    <Button
-        android:layout_width="wrap_content"
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:id="@+id/resetButton"
+            android:layout_below="@+id/clockView"
+            android:layout_alignRight="@+id/shuffle_button"
+            android:layout_alignEnd="@+id/shuffle_button" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solve"
+            android:id="@+id/solveButton" />
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/solve_button_label"
-        android:id="@+id/solve_button"
-        android:onClick="solve"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/shuffle_button"
-        android:layout_toEndOf="@+id/shuffle_button" />
+        android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shuffle_button_label"
+            android:id="@+id/shuffle_button"
+            android:onClick="shuffleImage"
+            android:layout_alignTop="@+id/photo_button"
+            android:layout_toRightOf="@+id/photo_button"
+            android:layout_toEndOf="@+id/photo_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/solve_button_label"
+            android:id="@+id/solve_button"
+            android:onClick="solve"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/shuffle_button"
+            android:layout_toEndOf="@+id/shuffle_button" />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
 
 </RelativeLayout>
