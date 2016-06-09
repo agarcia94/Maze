@@ -2,6 +2,7 @@ package com.example.andrewgarcia.mazerunner;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+
 import java.util.ArrayList;
 
 /**
@@ -30,6 +31,9 @@ public class MazeBoard {
 
                 if(count == 8){
                     tiles.add((null));
+                    /*
+                    Trying to see how to fill the null tile to an image which i have batman one for testing
+                     */
                 }
                 else{
                     tiles.add(new MazeTile(Bitmap.createBitmap(bm, j*size, i*size, size, size),count));

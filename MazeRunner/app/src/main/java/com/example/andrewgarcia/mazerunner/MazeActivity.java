@@ -23,7 +23,7 @@ public class MazeActivity extends AppCompatActivity {
     private MazeBoardView boardView;
     private ImageView photo;
     int row, col;
-
+    int global_Timer = 0;
     // Button and Clock View
     Button startButton, resetButton, solveButton;
     TextView clockView;
@@ -32,8 +32,13 @@ public class MazeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maze);
+
+        //MUSIC HANDLER
+        //----------------------------------------------------------------------
         final MediaPlayer menu = MediaPlayer.create(this,R.raw.main_menu_music);
+        final MediaPlayer gameplay = MediaPlayer.create(this,R.raw.gameplay);
         menu.start();
+        //----------------------------------------------------------------------
 
         startButton = (Button) findViewById(R.id.startButton);
         resetButton = (Button) findViewById(R.id.resetButton);
@@ -41,12 +46,23 @@ public class MazeActivity extends AppCompatActivity {
 
         clockView = (TextView) findViewById(R.id.clockView);
 
+//        while(gameplay.isPlaying()){
+//            int mCurrentPosition = gameplay.getCurrentPosition() / 1000;
+//            if(mCurrentPosition == 10){
+//                gameplay.stop();
+//            }
+//        }
+
         final clockClass timer = new clockClass(60000, 1000);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timer.start();
+                if(menu.isPlaying()){
+                    menu.stop();
+                    gameplay.start();
+                }
                 startButton.setEnabled(false);
 
                 Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.testmaze);
@@ -60,6 +76,10 @@ public class MazeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //timer.cancel();
+                if(gameplay.isPlaying()){
+                    gameplay.stop();
+                }
+                gameplay.start();
                 timer.start();
                 //startButton.setEnabled(true);
             }
@@ -73,7 +93,11 @@ public class MazeActivity extends AppCompatActivity {
        container.addView(boardView);
     }
 
-    public class clockClass extends CountDownTimer {
+    class clockClass extends CountDownTimer {
+        final MediaPlayer running_out_of_time = MediaPlayer.create(getApplicationContext(), R.raw.running_out_of_time);
+        final MediaPlayer out_of_time = MediaPlayer.create(getApplicationContext(), R.raw.pacman_death_sound);
+        
+
         public clockClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
@@ -85,11 +109,23 @@ public class MazeActivity extends AppCompatActivity {
                     TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
             System.out.println(hms);
+            System.out.println("Milis: " + millis);
+
+            if(millis == 0){
+                if(running_out_of_time.isPlaying()){
+                    running_out_of_time.stop();
+                }
+            }
+            else if (millis < 16555){
+                running_out_of_time.start();
+            }
+
             clockView.setText(hms);
         }
 
         @Override
         public void onFinish() {
+            out_of_time.start();
             clockView.setText("Times Up.");
         }
     }
