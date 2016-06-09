@@ -96,7 +96,7 @@ public class MazeActivity extends AppCompatActivity {
     class clockClass extends CountDownTimer {
         final MediaPlayer running_out_of_time = MediaPlayer.create(getApplicationContext(), R.raw.running_out_of_time);
         final MediaPlayer out_of_time = MediaPlayer.create(getApplicationContext(), R.raw.pacman_death_sound);
-        
+
 
         public clockClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
