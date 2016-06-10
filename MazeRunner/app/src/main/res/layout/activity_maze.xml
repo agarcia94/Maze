@@ -9,6 +9,19 @@
     tools:context="com.example.andrewgarcia.mazerunner.MazeActivity"
     android:id="@+id/maze_container">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+
+    </LinearLayout>
+
+
+
 
     <TextView
         android:layout_width="match_parent"
@@ -16,10 +29,10 @@
         android:text="00:01:00"
         android:id="@+id/clockView"
         android:textSize="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
@@ -27,10 +40,41 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/clockView"
-        android:layout_alignParentLeft="true"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout">
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:id="@+id/startButton"
+            android:layout_alignTop="@+id/startButton"
+            android:layout_alignLeft="@+id/clockView"
+            android:layout_alignStart="@+id/clockView" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:id="@+id/resetButton"
+            android:layout_below="@+id/clockView"
+            android:layout_alignRight="@+id/shuffle_button"
+            android:layout_alignEnd="@+id/shuffle_button" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solve"
+            android:id="@+id/solveButton" />
+
 
 
     </LinearLayout>
@@ -40,65 +84,39 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/linearLayout2">
-
-
-    </LinearLayout>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
-        android:id="@+id/startButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="63dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset"
-        android:id="@+id/resetButton"
-        android:layout_alignParentBottom="true"
+        android:text="DOWN"
+        android:id="@+id/downButton"
+        android:layout_above="@+id/clockView"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/shuffle_button_label"
-        android:id="@+id/shuffle_button"
-        android:onClick="shuffleImage"
-        android:layout_alignTop="@+id/startButton"
-        android:layout_alignRight="@+id/linearLayout2"
-        android:layout_alignEnd="@+id/linearLayout2" />
+        android:text="UP"
+        android:id="@+id/upButton"
+        android:layout_above="@+id/downButton"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/solve_button_label"
-        android:id="@+id/solve_button"
-        android:onClick="solve"
-        android:layout_marginBottom="12dp"
-        android:layout_above="@+id/shuffle_button"
-        android:layout_alignLeft="@+id/resetButton"
-        android:layout_alignStart="@+id/resetButton" />
+        android:text="LEFT"
+        android:id="@+id/leftButton"
+        android:layout_below="@+id/upButton"
+        android:layout_toLeftOf="@+id/downButton"
+        android:layout_toStartOf="@+id/downButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Solve"
-        android:id="@+id/solveButton"
-        android:layout_below="@+id/solve_button"
-        android:layout_alignLeft="@+id/solve_button"
-        android:layout_alignStart="@+id/solve_button" />
+        android:text="RIGHT"
+        android:id="@+id/rightButton"
+        android:layout_alignTop="@+id/downButton"
+        android:layout_toRightOf="@+id/downButton"
+        android:layout_toEndOf="@+id/downButton" />
 
 
 </RelativeLayout>

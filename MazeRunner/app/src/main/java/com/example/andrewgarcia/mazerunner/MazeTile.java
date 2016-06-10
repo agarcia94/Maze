@@ -9,16 +9,37 @@ import android.graphics.Canvas;
 public class MazeTile {
     private Bitmap bitmap;
     private int number;
+    private int wall;
+    private int start;
 
-    public MazeTile(Bitmap bitmap, int number){
+    public MazeTile(Bitmap bitmap, int number, int wall, int start){
         this.bitmap = bitmap;
         this.number = number;
+        this.wall = wall;
+        this.start = start;
     }
 
     public int getNumber() {
 
         return number;
     }
+
+    public int getWall() {
+        return wall;
+    }
+
+    public void setWall(int wall) {
+        this.wall = wall;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getStartCube(){
+        return start;
+    }
+
 
     public void draw(Canvas canvas, int x, int y) {
         canvas.drawBitmap(bitmap, x * bitmap.getWidth(), y * bitmap.getHeight(), null);

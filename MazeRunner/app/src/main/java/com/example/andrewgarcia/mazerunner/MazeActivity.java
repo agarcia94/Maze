@@ -25,7 +25,8 @@ public class MazeActivity extends AppCompatActivity {
     int row, col;
     int global_Timer = 0;
     // Button and Clock View
-    Button startButton, resetButton, solveButton;
+    Button startButton, resetButton, solveButton,
+            leftButton, rightButton, upButton, downButton;
     TextView clockView;
 
     @Override
@@ -42,16 +43,19 @@ public class MazeActivity extends AppCompatActivity {
 
         startButton = (Button) findViewById(R.id.startButton);
         resetButton = (Button) findViewById(R.id.resetButton);
-        solveButton = (Button) findViewById(R.id.solve_button);
+        solveButton = (Button) findViewById(R.id.solveButton);
+
+        leftButton = (Button) findViewById(R.id.leftButton);
+        rightButton = (Button) findViewById(R.id.rightButton);
+        upButton = (Button) findViewById(R.id.upButton);
+        downButton = (Button) findViewById(R.id.downButton);
+
+        leftButton.setEnabled(false);
+        rightButton.setEnabled(false);
+        upButton.setEnabled(false);
+        downButton.setEnabled(false);
 
         clockView = (TextView) findViewById(R.id.clockView);
-
-//        while(gameplay.isPlaying()){
-//            int mCurrentPosition = gameplay.getCurrentPosition() / 1000;
-//            if(mCurrentPosition == 10){
-//                gameplay.stop();
-//            }
-//        }
 
         final clockClass timer = new clockClass(60000, 1000);
 
@@ -65,10 +69,14 @@ public class MazeActivity extends AppCompatActivity {
                 }
                 startButton.setEnabled(false);
 
-                Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.testmaze);
-
+                Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.mazebg2);
                 boardView.initialize(testMaze);
                 boardView.invalidate();
+
+                leftButton.setEnabled(true);
+                rightButton.setEnabled(true);
+                upButton.setEnabled(true);
+                downButton.setEnabled(true);
             }
         });
 
@@ -78,10 +86,19 @@ public class MazeActivity extends AppCompatActivity {
                 //timer.cancel();
                 if(gameplay.isPlaying()){
                     gameplay.stop();
+                    gameplay.reset();
                 }
                 gameplay.start();
                 timer.start();
-                //startButton.setEnabled(true);
+
+                Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.mazebg2);
+                boardView.initialize(testMaze);
+                boardView.invalidate();
+
+                leftButton.setEnabled(true);
+                rightButton.setEnabled(true);
+                upButton.setEnabled(true);
+                downButton.setEnabled(true);
             }
         });
 
@@ -91,6 +108,45 @@ public class MazeActivity extends AppCompatActivity {
        // Some setup of the view.
        boardView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
        container.addView(boardView);
+
+        downButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boardView.moveDown();
+
+            }
+        });
+
+
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boardView.moveUp();
+
+            }
+        });
+
+
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boardView.moveLeft();
+
+            }
+        });
+
+
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boardView.moveRight();
+
+            }
+        });
     }
 
     class clockClass extends CountDownTimer {
@@ -109,7 +165,7 @@ public class MazeActivity extends AppCompatActivity {
                     TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
             System.out.println(hms);
-            System.out.println("Milis: " + millis);
+            clockView.setText(hms);
 
             if(millis == 0){
                 if(running_out_of_time.isPlaying()){
@@ -119,14 +175,16 @@ public class MazeActivity extends AppCompatActivity {
             else if (millis < 16555){
                 running_out_of_time.start();
             }
-
-            clockView.setText(hms);
         }
 
         @Override
         public void onFinish() {
             out_of_time.start();
             clockView.setText("Times Up.");
+            leftButton.setEnabled(false);
+            rightButton.setEnabled(false);
+            upButton.setEnabled(false);
+            downButton.setEnabled(false);
         }
     }
 
@@ -158,7 +216,7 @@ public class MazeActivity extends AppCompatActivity {
     //        Bundle extras = data.getExtras();
     //        Bitmap imageBitmap = (Bitmap) extras.get("data");
     //        boardView.initialize(imageBitmap);
-     //       boardView.invalidate();
+    //       boardView.invalidate();
 //
     //    }
     //}
@@ -171,6 +229,7 @@ public class MazeActivity extends AppCompatActivity {
     //}
 
     public void shuffleImage(View view) {
+
         boardView.shuffle();
         boardView.invalidate();
     }

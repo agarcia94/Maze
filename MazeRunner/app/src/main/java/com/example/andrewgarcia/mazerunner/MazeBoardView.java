@@ -71,22 +71,73 @@ public class MazeBoardView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (animation == null && mazeBoard != null) {
-            switch(event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (mazeBoard.click(event.getX(), event.getY())) {
-                        invalidate();
-                        if (mazeBoard.resolved()) {
-                            Toast toast = Toast.makeText(activity, "Congratulations!", Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        return true;
-                    }
-            }
-        }
+        //if (animation == null && mazeBoard != null) {
+        //    switch(event.getAction()) {
+        //        case MotionEvent.ACTION_DOWN:
+        //            if (mazeBoard.click(event.getX(), event.getY())) {
+
+
+        //               Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+
+        //               invalidate();
+        //               if (mazeBoard.resolved()) {
+        //                   Toast toast = Toast.makeText(activity, "Congratulations!", Toast.LENGTH_LONG);
+        //                   toast.show();
+        //               }
+        //               return true;
+        //           }
+        //   }
+        //}
         return super.onTouchEvent(event);
     }
 
     public void solve() {
     }
+
+
+
+
+    public void moveUp(){
+        // 1-up, 2-left, 3-down, 4-right
+        if (mazeBoard.buttonClick(1)) {
+            //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+            invalidate();
+        }
+
+    }
+
+
+
+
+    public void moveDown(){
+        // 1-up, 2-left, 3-down, 4-right
+        if (mazeBoard.buttonClick(3)) {
+            //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+            invalidate();
+        }
+
+    }
+
+
+    public void moveLeft(){
+        // 1-up, 2-left, 3-down, 4-right
+        if (mazeBoard.buttonClick(2)) {
+            //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+            invalidate();
+        }
+
+    }
+
+
+    public void moveRight(){
+        // 1-up, 2-left, 3-down, 4-right
+        if (mazeBoard.buttonClick(4)) {
+            //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+            invalidate();
+        }
+
+    }
+
+
+
 }
