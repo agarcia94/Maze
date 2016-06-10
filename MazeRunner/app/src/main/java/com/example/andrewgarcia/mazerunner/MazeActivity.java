@@ -188,6 +188,7 @@ public class MazeActivity extends AppCompatActivity {
             rightButton.setEnabled(false);
             upButton.setEnabled(false);
             downButton.setEnabled(false);
+            resetButton.setEnabled(true);
         }
     }
 
