@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,7 +24,6 @@ public class MazeActivity extends AppCompatActivity {
     private MazeBoardView boardView;
     private ImageView photo;
     int row, col;
-    int global_Timer = 0;
     // Button and Clock View
     Button startButton, resetButton, solveButton,
             leftButton, rightButton, upButton, downButton;
@@ -33,6 +33,8 @@ public class MazeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maze);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Keeps the Screen from going to sleep while in game
+
 
         //MUSIC HANDLER
         //----------------------------------------------------------------------
@@ -68,6 +70,7 @@ public class MazeActivity extends AppCompatActivity {
                     gameplay.start();
                 }
                 startButton.setEnabled(false);
+                resetButton.setEnabled(false);
 
                 Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.mazebg2);
                 boardView.initialize(testMaze);

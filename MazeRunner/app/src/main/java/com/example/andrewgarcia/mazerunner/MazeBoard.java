@@ -73,7 +73,6 @@ public class MazeBoard {
         tiles.get(103).setWall(0);
 
 
-
         tiles.get(28).setWall(0);
         tiles.get(29).setWall(0);
         tiles.get(30).setWall(0);
