@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -65,20 +66,8 @@ public class MazeBoardView extends View {
         }
     }
 
-    public void showUserWins(){
-        ArrayList<MazeTile> tiles = mazeBoard.getTiles();
-        for(int i =0; i < tiles.size(); i++){
-            if(tiles.get(i).getStartCube() == 1){
-                int tileX = i % mazeBoard.getNUM_TILES();
-                int tileY = i / mazeBoard.getNUM_TILES();
+    public MazeBoard getBoard(){ return mazeBoard; }
 
-                if(tileX == destX && tileY == destY){
-                    Toast toast = Toast.makeText(activity, "Solved! ", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        }
-    }
 
     public void shuffle() {
         if (animation == null && mazeBoard != null) {
@@ -96,27 +85,34 @@ public class MazeBoardView extends View {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        //if (animation == null && mazeBoard != null) {
-        //    switch(event.getAction()) {
-        //        case MotionEvent.ACTION_DOWN:
-        //            if (mazeBoard.click(event.getX(), event.getY())) {
 
 
-        //               Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
-
-        //               invalidate();
-        //               if (mazeBoard.resolved()) {
-        //                   Toast toast = Toast.makeText(activity, "Congratulations!", Toast.LENGTH_LONG);
-        //                   toast.show();
-        //               }
-        //               return true;
-        //           }
-        //   }
-        //}
-        return super.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (animation == null && mazeBoard != null) {
+//            switch(event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    if (mazeBoard.click(event.getX(), event.getY())) {
+//
+//
+//                       Log.d("Touch event", "Event.getX: " + event.getX() + "    Event.getY: " + event.getY());
+//
+//                       invalidate();
+//
+////                        if(event.getX() == destX && event.getY() == destY){
+////                            Toast toast = Toast.makeText(activity, "Congratulations!", Toast.LENGTH_LONG);
+////                            toast.show();
+////                        }
+//                       if (mazeBoard.resolved()) {
+//                           Toast toast = Toast.makeText(activity, "Congratulations!", Toast.LENGTH_LONG);
+//                           toast.show();
+//                       }
+//                       return true;
+//                   }
+//           }
+//        }
+//        return super.onTouchEvent(event);
+//    }
 
     public void solve() {
         mazeBoard.setHValue(destX, destY); //set the heuristic value for the entry board
@@ -199,6 +195,22 @@ public class MazeBoardView extends View {
         // 1-up, 2-left, 3-down, 4-right
         if (mazeBoard.buttonClick(1)) {
             //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+
+//            ArrayList<MazeTile> tiles = mazeBoard.getTiles();
+//
+//            for(int i =0; i < tiles.size(); i++){
+//                if(tiles.get(i).getStartCube() == 1){
+//                    int tileX = i % mazeBoard.getNUM_TILES();
+//                    int tileY = i / mazeBoard.getNUM_TILES();
+//
+//
+//
+//                    if(tileX == destX && tileY == destY){
+//                        Toast toast = Toast.makeText(activity, "Solved!", Toast.LENGTH_LONG);
+//                        toast.show();
+//                    }
+//                }
+//            }
             invalidate();
         }
 
@@ -211,6 +223,19 @@ public class MazeBoardView extends View {
         // 1-up, 2-left, 3-down, 4-right
         if (mazeBoard.buttonClick(3)) {
             //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+//            ArrayList<MazeTile> tiles = mazeBoard.getTiles();
+//
+//            for(int i =0; i < tiles.size(); i++){
+//                if(tiles.get(i).getStartCube() == 1){
+//                    int tileX = i % mazeBoard.getNUM_TILES();
+//                    int tileY = i / mazeBoard.getNUM_TILES();
+//
+//                    if(tileX == destX && tileY == destY){
+//                        Toast toast = Toast.makeText(activity, "Solved!", Toast.LENGTH_LONG);
+//                        toast.show();
+//                    }
+//                }
+//            }
             invalidate();
         }
 
@@ -221,6 +246,20 @@ public class MazeBoardView extends View {
         // 1-up, 2-left, 3-down, 4-right
         if (mazeBoard.buttonClick(2)) {
             //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+
+//            ArrayList<MazeTile> tiles = mazeBoard.getTiles();
+//
+//            for(int i =0; i < tiles.size(); i++){
+//                if(tiles.get(i).getStartCube() == 1){
+//                    int tileX = i % mazeBoard.getNUM_TILES();
+//                    int tileY = i / mazeBoard.getNUM_TILES();
+//
+//                    if(tileX == destX && tileY == destY){
+//                        Toast toast = Toast.makeText(activity, "Solved!", Toast.LENGTH_LONG);
+//                        toast.show();
+//                    }
+//                }
+//            }
             invalidate();
         }
 
@@ -231,6 +270,20 @@ public class MazeBoardView extends View {
         // 1-up, 2-left, 3-down, 4-right
         if (mazeBoard.buttonClick(4)) {
             //Log.d("Tag Name", "Event.getX: "+event.getX()+ "    Event.getY: "+event.getY());
+
+//            ArrayList<MazeTile> tiles = mazeBoard.getTiles();
+//
+//            for(int i =0; i < tiles.size(); i++){
+//                if(tiles.get(i).getStartCube() == 1){
+//                    int tileX = i % mazeBoard.getNUM_TILES();
+//                    int tileY = i / mazeBoard.getNUM_TILES();
+//
+//                    if(tileX == destX && tileY == destY){
+//                        Toast toast = Toast.makeText(activity, "Solved!", Toast.LENGTH_LONG);
+//                        toast.show();
+//                    }
+//                }
+//            }
             invalidate();
         }
 

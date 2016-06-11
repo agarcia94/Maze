@@ -335,7 +335,7 @@ public class MazeBoard implements Comparable<MazeBoard>{
     /**
      * Search for the null tile in a board
      */
-    private void findNullTile(){
+    public void findNullTile(){
         int x = 0;
         int y = 0;
 

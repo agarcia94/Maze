@@ -14,10 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class MazeActivity extends AppCompatActivity {
+public class MazeActivity extends AppCompatActivity{
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap = null;
@@ -26,6 +28,9 @@ public class MazeActivity extends AppCompatActivity {
     int row, col;
 
     int global_Timer = 0;
+
+    int destX = 3;
+    int destY = 11;
 
 
     // Button and Clock View
@@ -140,6 +145,33 @@ public class MazeActivity extends AppCompatActivity {
 
                 boardView.moveDown();
 
+                ArrayList<MazeTile> tiles = boardView.getBoard().getTiles();
+
+                for(int i =0; i < tiles.size(); i++){
+                    if(tiles.get(i).getStartCube() == 1){
+                        int tileX = i % boardView.getBoard().getNUM_TILES();
+                        int tileY = i / boardView.getBoard().getNUM_TILES();
+
+                        if(tileX == destX && tileY == destY){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
+                            toast.show();
+
+                            timer.cancel();
+
+                            if(gameplay.isPlaying()){
+                                gameplay.stop();
+                                gameplay.reset();
+                            }
+
+
+                            resetButton.setEnabled(true);
+                            solveButton.setEnabled(true);
+
+                            break;
+                        }
+                    }
+                }
+
             }
         });
 
@@ -149,6 +181,36 @@ public class MazeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 boardView.moveUp();
+
+                ArrayList<MazeTile> tiles = boardView.getBoard().getTiles();
+
+                for(int i =0; i < tiles.size(); i++){
+                    if(tiles.get(i).getStartCube() == 1){
+                        int tileX = i % boardView.getBoard().getNUM_TILES();
+                        int tileY = i / boardView.getBoard().getNUM_TILES();
+
+                        if(tileX == destX && tileY == destY){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
+                            toast.show();
+
+                            timer.cancel();
+
+                            if(gameplay.isPlaying()){
+                                gameplay.stop();
+                                gameplay.reset();
+                            }
+
+                            resetButton.setEnabled(true);
+                            solveButton.setEnabled(true);
+
+                            break;
+
+
+                        }
+                    }
+                }
+
+
 
             }
         });
@@ -160,6 +222,34 @@ public class MazeActivity extends AppCompatActivity {
 
                 boardView.moveLeft();
 
+                ArrayList<MazeTile> tiles = boardView.getBoard().getTiles();
+
+                for(int i =0; i < tiles.size(); i++){
+                    if(tiles.get(i).getStartCube() == 1){
+                        int tileX = i % boardView.getBoard().getNUM_TILES();
+                        int tileY = i / boardView.getBoard().getNUM_TILES();
+
+                        if(tileX == destX && tileY == destY){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
+                            toast.show();
+
+                            timer.cancel();
+
+                            if(gameplay.isPlaying()){
+                                gameplay.stop();
+                                gameplay.reset();
+                            }
+
+                            resetButton.setEnabled(true);
+                            solveButton.setEnabled(true);
+
+                            break;
+
+
+                        }
+                    }
+                }
+
             }
         });
 
@@ -170,9 +260,38 @@ public class MazeActivity extends AppCompatActivity {
 
                 boardView.moveRight();
 
+                ArrayList<MazeTile> tiles = boardView.getBoard().getTiles();
+
+                for(int i =0; i < tiles.size(); i++){
+                    if(tiles.get(i).getStartCube() == 1){
+                        int tileX = i % boardView.getBoard().getNUM_TILES();
+                        int tileY = i / boardView.getBoard().getNUM_TILES();
+
+                        if(tileX == destX && tileY == destY){
+                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
+                            toast.show();
+
+                            timer.cancel();
+
+                            if(gameplay.isPlaying()){
+                                gameplay.stop();
+                                gameplay.reset();
+                            }
+
+                            resetButton.setEnabled(true);
+                            solveButton.setEnabled(true);
+
+                            break;
+
+
+                        }
+                    }
+                }
+
             }
         });
     }
+
 
 
     class clockClass extends CountDownTimer {
