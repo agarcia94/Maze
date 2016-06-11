@@ -4,20 +4,33 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
 
+import com.google.common.collect.Maps;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Alex Perez on 6/4/2016.
  */
-public class MazeBoard {
-    private static final int NUM_TILES = 12;
+
+public class MazeBoard implements Comparable<MazeBoard>{
+    private final int NUM_TILES = 12;
+
     private static final int[][] NEIGHBOUR_COORDS = {
             { -1, 0 },
             { 1, 0 },
             { 0, -1 },
             { 0, 1 }
     };
+
     private ArrayList<MazeTile> tiles;
+    private MazeTile nullTile = null;
+    private Map<MazeBoard, Double> heuristicDistanceMap = Maps.newHashMap();
+    private MazeBoard previousBoard = null;
+
+    private int steps = 0;   //this is for the g value
+    private double hValue = 0.0;  //this is for the heuristic
 
     MazeBoard(Bitmap bitmap, int parentWidth) {
         //Bitmap.createBitmap(bitmap, 0, 0, parentWidth, parentWidth);
@@ -72,7 +85,6 @@ public class MazeBoard {
         tiles.get(102).setWall(0);
         tiles.get(103).setWall(0);
 
-
         tiles.get(28).setWall(0);
         tiles.get(29).setWall(0);
         tiles.get(30).setWall(0);
@@ -111,6 +123,52 @@ public class MazeBoard {
 
     MazeBoard(MazeBoard otherBoard) {
         tiles = (ArrayList<MazeTile>) otherBoard.tiles.clone();
+        previousBoard = otherBoard;
+        steps = otherBoard.getGValue() + 1;
+    }
+
+    public MazeBoard getPreviousBoard(){ return previousBoard; }
+
+    public void setPreviousBoard(MazeBoard previous){ this.previousBoard = previous; }
+
+    public ArrayList<MazeTile> getTiles(){ return tiles; }
+
+    public int getNUM_TILES(){ return NUM_TILES; }
+
+    /**
+     * Calculate the cost for the current board
+     * @return the board cost
+     */
+    public double getFValue(){ return steps + hValue; }
+
+    /**
+     * Return the g value for the current board
+     * @return g value for current board
+     */
+    public int getGValue(){ return steps; }
+
+    /**
+     * Set the g value for the current board
+     * @param g value to be given for this board's g value
+     */
+    public void setGValue(int g){ this.steps = g; }
+
+    /**
+     * Return the heuristic cost for this board
+     * @return heuristic cost for this board
+     */
+    public double getHValue(){ return hValue; }
+
+    /**
+     * Set the heuristic cost for this board
+     */
+    public void setHValue(int destX, int destY){
+        this.findNullTile();  //initialize our null tile instance variable
+        //end.findNullTile();  //find the null tile for the end board
+
+        //MazeTile endTile = end.getNullTile();
+        this.hValue = Math.sqrt( Math.pow(this.nullTile.getX() - destX, 2) +
+                       Math.pow(this.nullTile.getY() - destY, 2) );
     }
 
     public void reset() {
@@ -226,8 +284,6 @@ public class MazeBoard {
     }
 
 
-
-
     public boolean resolved() {
         for (int i = 0; i < NUM_TILES * NUM_TILES - 1; i++) {
             MazeTile tile = tiles.get(i);
@@ -256,7 +312,6 @@ public class MazeBoard {
             int nullY = tileY + delta[1];
 
             Log.d("Tag Name", "    nullX: " + nullX + "    nullY: " + nullY + "   XYtoIndex: " + XYtoIndex(nullX, nullY));
-
             if (nullX >= 0 && nullX < NUM_TILES && nullY >= 0 && nullY < NUM_TILES &&
                     tiles.get(XYtoIndex(nullX, nullY)).getWall()==0 &&
                     //tiles.get(XYtoIndex(nullX, nullY)) == null) {
@@ -270,11 +325,36 @@ public class MazeBoard {
         return false;
     }
 
+    /**
+     * Return the null tile
+     * @return the null tile for this board
+     */
+    public MazeTile getNullTile(){ return nullTile; }
+
+
+    /**
+     * Search for the null tile in a board
+     */
+    private void findNullTile(){
+        int x = 0;
+        int y = 0;
+
+        for (int i = 0; i < tiles.size(); i++) {
+            if (tiles.get(i).getStartCube() == 1) {
+//                x = i % NUM_TILES;
+//                y = i / NUM_TILES;
+//                break;
+                nullTile = tiles.get(i);
+                break;
+            }
+        }
+    }
+
     public ArrayList<MazeBoard> neighbours() {
         ArrayList<MazeBoard> boards = new ArrayList<>();
         MazeBoard copyBoard = null;
-        int x = 0;
-        int y = 0;
+        int x = 0;  //x for the  null tile
+        int y = 0;  //y for the null tile
         //MazeTile empty = null;
         //int numberOfTile = 0;
         for (int i = 0; i < tiles.size(); i++) {
@@ -284,18 +364,21 @@ public class MazeBoard {
                 x = i % NUM_TILES;
                 y = i / NUM_TILES;
                 break;
-                //}
             }
         }
 
+
         for (int[] delta : NEIGHBOUR_COORDS) {
+
             int nullX = x + delta[0];
             int nullY = y + delta[1];
             if (nullX >= 0 && nullX < NUM_TILES && nullY >= 0 && nullY < NUM_TILES &&
-                    tiles.get(XYtoIndex(nullX, nullY)).getWall()==0) {
+                    tiles.get(XYtoIndex(nullX, nullY)).getWall() == 0) {
+
                 copyBoard = new MazeBoard(this);
                 copyBoard.swapTiles(XYtoIndex(nullX, nullY), XYtoIndex(x, y));
                 boards.add(copyBoard);
+
             }
         }
         return boards;
@@ -303,8 +386,21 @@ public class MazeBoard {
 
 
 
+
+    /**
+     * This will be our form of comparing which neighbor will be chosen
+     * based on who has the lowest f cost
+     */
+    @Override
+    public int compareTo(MazeBoard other){
+        return Double.compare(this.getFValue(), other.getFValue());
+    }
+
+
     public int priority() {
 
         return 0;
     }
+
+
 }

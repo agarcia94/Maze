@@ -9,18 +9,73 @@ import android.graphics.Canvas;
 public class MazeTile {
     private Bitmap bitmap;
     private int number;
+
     private int wall;
     private int start;
+    private int end;
+
+    private boolean isStartTile;
+    private boolean isEndTile;
+    private int x;
+    private int y;
+
 
     public MazeTile(Bitmap bitmap, int number, int wall, int start){
         this.bitmap = bitmap;
         this.number = number;
+
         this.wall = wall;
         this.start = start;
+
+        this.end = 0;
+
+        isStartTile = false;
+        isEndTile = false;
+
+    }
+
+    public MazeTile(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getEndCube(){ return end; }
+
+    public void setEnd(int end){ this.end = end; }
+
+    public int getX(){
+        return x;
+    }
+
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
+    public boolean isStart(){
+        return isStartTile;
+    }
+
+    public void setStartTile(boolean start){
+        isStartTile = start;
+    }
+
+    public boolean isEnd(){
+        return isEndTile;
+    }
+
+    public void setEndTile(boolean end){
+        isEndTile = end;
     }
 
     public int getNumber() {
-
         return number;
     }
 
