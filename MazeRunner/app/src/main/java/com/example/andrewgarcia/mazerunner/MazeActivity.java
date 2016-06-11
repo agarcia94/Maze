@@ -51,6 +51,7 @@ public class MazeActivity extends AppCompatActivity{
         //----------------------------------------------------------------------
         final MediaPlayer menu = MediaPlayer.create(this,R.raw.main_menu_music);
         final MediaPlayer gameplay = MediaPlayer.create(this,R.raw.gameplay);
+        final MediaPlayer gameplay2 = MediaPlayer.create(this,R.raw.gameplay2);
         menu.start();
         //----------------------------------------------------------------------
 
@@ -105,10 +106,10 @@ public class MazeActivity extends AppCompatActivity{
                 if(gameplay.isPlaying()){
                     gameplay.stop();
                     gameplay.reset();
+                }else if(gameplay2.isPlaying()){
+                    gameplay2.stop();
                 }
-                else{
-                    gameplay.start();
-                }
+                gameplay2.start();
                 timer.start();
 
 
@@ -168,7 +169,10 @@ public class MazeActivity extends AppCompatActivity{
 
                             if(gameplay.isPlaying()){
                                 gameplay.stop();
-                                gameplay.reset();
+                                //gameplay.reset();
+                            }
+                            else if(gameplay2.isPlaying()){
+                                gameplay2.stop();
                             }
 
                             leftButton.setEnabled(false);
