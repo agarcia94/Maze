@@ -111,8 +111,7 @@ public class MazeActivity extends AppCompatActivity{
                 }
                 gameplay2.start();
                 timer.start();
-
-
+                
                 Bitmap testMaze = BitmapFactory.decodeResource(getResources(),R.drawable.mazebg2);
                 boardView.initialize(testMaze);
                 boardView.invalidate();
