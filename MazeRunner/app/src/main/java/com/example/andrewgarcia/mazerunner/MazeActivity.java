@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +28,8 @@ public class MazeActivity extends AppCompatActivity{
     private ImageView photo;
     int row, col;
 
-    int global_Timer = 0;
+    double max_Time = 60000;
+    double cur_Time = 0;
 
     int destX = 3;
     int destY = 11;
@@ -155,7 +157,11 @@ public class MazeActivity extends AppCompatActivity{
                         int tileY = i / boardView.getBoard().getNUM_TILES();
 
                         if(tileX == destX && tileY == destY){
-                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
+                            double seconds = ((max_Time-cur_Time)/ 1000) % 60 ;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            seconds = Double.valueOf(df.format(seconds));
+
+                            Toast toast = Toast.makeText(getApplicationContext(), "Finished in " + (seconds) + " Seconds", Toast.LENGTH_LONG);
                             toast.show();
 
                             timer.cancel();
@@ -195,10 +201,12 @@ public class MazeActivity extends AppCompatActivity{
                         int tileY = i / boardView.getBoard().getNUM_TILES();
 
                         if(tileX == destX && tileY == destY){
-                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
-                            toast.show();
+                            double seconds = ((max_Time-cur_Time)/ 1000) % 60 ;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            seconds = Double.valueOf(df.format(seconds));
 
-                            timer.cancel();
+                            Toast toast = Toast.makeText(getApplicationContext(), "Finished in " + (seconds) + " Seconds", Toast.LENGTH_LONG);
+                            toast.show();
 
                             if(gameplay.isPlaying()){
                                 gameplay.stop();
@@ -213,8 +221,6 @@ public class MazeActivity extends AppCompatActivity{
                             solveButton.setEnabled(true);
 
                             break;
-
-
                         }
                     }
                 }
@@ -239,7 +245,11 @@ public class MazeActivity extends AppCompatActivity{
                         int tileY = i / boardView.getBoard().getNUM_TILES();
 
                         if(tileX == destX && tileY == destY){
-                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
+                            double seconds = ((max_Time-cur_Time)/ 1000) % 60 ;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            seconds = Double.valueOf(df.format(seconds));
+
+                            Toast toast = Toast.makeText(getApplicationContext(), "Finished in " + (seconds) + " Seconds", Toast.LENGTH_LONG);
                             toast.show();
 
                             timer.cancel();
@@ -257,8 +267,6 @@ public class MazeActivity extends AppCompatActivity{
                             solveButton.setEnabled(true);
 
                             break;
-
-
                         }
                     }
                 }
@@ -281,9 +289,12 @@ public class MazeActivity extends AppCompatActivity{
                         int tileY = i / boardView.getBoard().getNUM_TILES();
 
                         if(tileX == destX && tileY == destY){
-                            Toast toast = Toast.makeText(getApplicationContext(), "Solved! ", Toast.LENGTH_LONG);
-                            toast.show();
+                            double seconds = ((max_Time-cur_Time)/ 1000) % 60 ;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            seconds = Double.valueOf(df.format(seconds));
 
+                            Toast toast = Toast.makeText(getApplicationContext(), "Finished in " + (seconds) + " Seconds", Toast.LENGTH_LONG);
+                            toast.show();
                             timer.cancel();
 
                             if(gameplay.isPlaying()){
@@ -299,8 +310,6 @@ public class MazeActivity extends AppCompatActivity{
                             solveButton.setEnabled(true);
 
                             break;
-
-
                         }
                     }
                 }
@@ -323,6 +332,7 @@ public class MazeActivity extends AppCompatActivity{
         @Override
         public void onTick(long millisUntilFinished) {
             long millis = millisUntilFinished;
+            cur_Time = millis;
             String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                     TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));

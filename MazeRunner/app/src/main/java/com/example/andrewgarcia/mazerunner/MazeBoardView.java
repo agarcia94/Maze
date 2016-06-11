@@ -55,7 +55,7 @@ public class MazeBoardView extends View {
                 if (animation.size() == 0) {
                     animation = null;
                     mazeBoard.reset();
-                    Toast toast = Toast.makeText(activity, "Solved! ", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(activity, "Computer Best Route", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     this.postInvalidateDelayed(500);
