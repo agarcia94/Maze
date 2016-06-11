@@ -57,7 +57,7 @@ public class MazeBoard implements Comparable<MazeBoard>{
         tiles.get(3).setStart(1);
 
         tiles.get(3).setWall(0);
-        tiles.get(15).setWall(0);
+        tiles.get(15).setWall(0); //
         tiles.get(27).setWall(0);
         tiles.get(39).setWall(0);
         tiles.get(51).setWall(0);
