@@ -104,7 +104,9 @@ public class MazeActivity extends AppCompatActivity{
                     gameplay.stop();
                     gameplay.reset();
                 }
-                gameplay.start();
+                else{
+                    gameplay.start();
+                }
                 timer.start();
 
 
@@ -163,7 +165,10 @@ public class MazeActivity extends AppCompatActivity{
                                 gameplay.reset();
                             }
 
-
+                            leftButton.setEnabled(false);
+                            rightButton.setEnabled(false);
+                            upButton.setEnabled(false);
+                            downButton.setEnabled(false);
                             resetButton.setEnabled(true);
                             solveButton.setEnabled(true);
 
@@ -200,6 +205,10 @@ public class MazeActivity extends AppCompatActivity{
                                 gameplay.reset();
                             }
 
+                            leftButton.setEnabled(false);
+                            rightButton.setEnabled(false);
+                            upButton.setEnabled(false);
+                            downButton.setEnabled(false);
                             resetButton.setEnabled(true);
                             solveButton.setEnabled(true);
 
@@ -240,6 +249,10 @@ public class MazeActivity extends AppCompatActivity{
                                 gameplay.reset();
                             }
 
+                            leftButton.setEnabled(false);
+                            rightButton.setEnabled(false);
+                            upButton.setEnabled(false);
+                            downButton.setEnabled(false);
                             resetButton.setEnabled(true);
                             solveButton.setEnabled(true);
 
@@ -278,6 +291,10 @@ public class MazeActivity extends AppCompatActivity{
                                 gameplay.reset();
                             }
 
+                            leftButton.setEnabled(false);
+                            rightButton.setEnabled(false);
+                            upButton.setEnabled(false);
+                            downButton.setEnabled(false);
                             resetButton.setEnabled(true);
                             solveButton.setEnabled(true);
 
