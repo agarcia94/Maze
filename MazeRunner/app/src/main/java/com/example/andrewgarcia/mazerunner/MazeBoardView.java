@@ -65,6 +65,21 @@ public class MazeBoardView extends View {
         }
     }
 
+    public void showUserWins(){
+        ArrayList<MazeTile> tiles = mazeBoard.getTiles();
+        for(int i =0; i < tiles.size(); i++){
+            if(tiles.get(i).getStartCube() == 1){
+                int tileX = i % mazeBoard.getNUM_TILES();
+                int tileY = i / mazeBoard.getNUM_TILES();
+
+                if(tileX == destX && tileY == destY){
+                    Toast toast = Toast.makeText(activity, "Solved! ", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        }
+    }
+
     public void shuffle() {
         if (animation == null && mazeBoard != null) {
 
@@ -144,10 +159,6 @@ public class MazeBoardView extends View {
             for(MazeBoard neighbor : currentNeighbors){
                 calculateNeighbor(current, neighbor);
             }
-
-
-
-
 
         }
     }
